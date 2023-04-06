@@ -1,0 +1,48 @@
+
+
+.filter-container{
+    display: flex;
+    @include pad{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .chevron-up{
+        position: relative;
+        &::after{
+            font-family: 'Font Awesome 6 Free';
+            content: ' \f078';
+            color: #fff;
+            position: absolute;
+            font-weight: 700;
+            top: 44px;
+            right: 40px;
+            cursor: pointer;
+        }
+    }
+    .filter{
+        margin-top: 15px;
+        height: 69px;
+        width: 170px;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-family: 'Lato';
+        font-weight: 700;
+        font-size: 1.1rem;
+        padding-left: 20px;
+        margin-right: 20px;
+        &::placeholder{
+            color: #fff;
+        }
+        &--ingredients{
+            background-color: $color-filter-1;
+        }
+        &--appareils{
+            background-color: $color-filter-2;
+        }
+        &--ustensiles{
+            background-color: $color-filter-3;
+        }
+
+    }
+}

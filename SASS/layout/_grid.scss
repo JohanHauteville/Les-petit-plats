@@ -1,0 +1,16 @@
+.recettes-grille{
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 50px;
+    @include pad{
+        grid-template-columns: 1fr 1fr;
+    }
+    @include midPad{
+        gap: 20px;
+    }
+    @include mobile{
+        grid-template-columns: 1fr;
+    }
+
+}

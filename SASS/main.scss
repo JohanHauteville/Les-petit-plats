@@ -1,8 +1,17 @@
+@import './abstract/variables';
+@import './abstract/mixins';
+
+
 @import './base/reset';
 @import './base/typography';
 
 @import './components/searchBar';
+@import './components/filter';
+@import './components/recipeCard';
+
 
 
 @import './layout/body';
 @import './layout/header';
+@import './layout/grid';
+

@@ -48,6 +48,10 @@ table {
   border-spacing: 0;
 }
 
+*:focus {
+  outline: 3px solid #D04F4F;
+}
+
 h1 {
   font-family: "DM Sans", sans-serif;
   font-size: 2.2rem;
@@ -70,9 +74,6 @@ h1 {
 }
 .search-bar input::placeholder {
   color: #b6b6b6;
-}
-.search-bar input:focus {
-  outline: 3px solid #D04F4F;
 }
 .search-bar .search-icon {
   position: absolute;
@@ -104,6 +105,19 @@ h1 {
   right: 40px;
   cursor: pointer;
 }
+.filter-container .chevron-down {
+  position: relative;
+}
+.filter-container .chevron-down::after {
+  font-family: "Font Awesome 6 Free";
+  content: " \f077";
+  color: #fff;
+  position: absolute;
+  font-weight: 700;
+  top: 44px;
+  right: 40px;
+  cursor: pointer;
+}
 .filter-container .filter {
   margin-top: 15px;
   height: 69px;
@@ -116,6 +130,7 @@ h1 {
   font-size: 1.1rem;
   padding-left: 20px;
   margin-right: 20px;
+  position: relative;
 }
 .filter-container .filter::placeholder {
   color: #fff;
@@ -123,11 +138,34 @@ h1 {
 .filter-container .filter--ingredients {
   background-color: #3282F7;
 }
+.filter-container .filter--ingredients:focus::placeholder {
+  color: #94befb;
+}
 .filter-container .filter--appareils {
   background-color: #68D9A4;
 }
+.filter-container .filter--appareils:focus::placeholder {
+  color: #b9eed5;
+}
 .filter-container .filter--ustensiles {
   background-color: #ED6454;
+}
+.filter-container .filter--ustensiles:focus::placeholder {
+  color: #f7b8b0;
+}
+.filter-container .filter__list {
+  display: none;
+  margin-top: 0;
+  padding-bottom: 20px;
+  height: inherit;
+  border-radius: 0 0 5px 5px;
+  position: absolute;
+  top: 80px;
+  font-weight: 400;
+  line-height: 30px;
+}
+.filter-container [data-filter-open] {
+  width: 400px;
 }
 
 .recipe {

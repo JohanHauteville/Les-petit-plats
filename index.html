@@ -46,9 +46,30 @@
 
             </div>
             <div class="filter-container">
-                <div id="filter-1" class="chevron-up"><input type="text" class="filter filter--ingredients" placeholder="Ingredients"></div>
-                <div id="filter-1" class="chevron-up"><input type="text" class="filter filter--appareils" placeholder="Appareils"></div>
-                <div id="filter-1" class="chevron-up"><input type="text" class="filter filter--ustensiles" placeholder="Ustensiles"></div>
+                <div id="filter-1" class="chevron-up">
+                    <input type="text" class="filter filter--ingredients" placeholder="Ingrédients">
+                    <ul class="filter filter__list filter--ingredients ">
+                        <li>Lait de coco</li>
+                        <li>Sucre </li>
+                        <li>Concombre</li>
+                    </ul>
+                </div>
+                <div id="filter-2" class="chevron-up">
+                    <input type="text" class="filter filter--appareils" placeholder="Appareils">
+                    <ul class="filter filter__list filter--appareils ">
+                        <li>Lait de coco</li>
+                        <li>Sucre </li>
+                        <li>Concombre</li>
+                    </ul>
+                </div>
+                <div id="filter-3" class="chevron-up">
+                    <input type="text" class="filter filter--ustensiles" placeholder="Ustensiles">
+                    <ul class="filter filter__list filter--ustensiles ">
+                        <li>Lait de coco</li>
+                        <li>Sucre </li>
+                        <li>Concombre</li>
+                    </ul>
+                </div>
             </div>
         </div>
         <section class="recettes-grille"></section>
@@ -59,7 +80,8 @@
 
 
 
-    <script type="module" src="./scripts/pages/index.js"></script>
+    <script type="module" src="/scripts/pages/index.js"></script>
+    <script type="module" src="/scripts/utils/filter.js"></script>
     <!-- Bootstrap JS bundle → -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
 </body>

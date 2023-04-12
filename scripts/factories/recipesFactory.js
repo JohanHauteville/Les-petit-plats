@@ -1,8 +1,6 @@
 export function recipesFactory(data){
 
     const {id,name,servings,ingredients,time,description,appliance,ustensils} = data
-    // console.log('recipesFactory: ');
-    // console.log(data);
 
     function getRecipesDOM(){
         const article = document.createElement('article')
@@ -32,8 +30,6 @@ export function recipesFactory(data){
         const splitDescription = description.slice(0,maxDescriptionCaracteres)
         infoDescription.textContent = `${splitDescription}${splitDescription[maxDescriptionCaracteres-1]===undefined?".":"..."}`
 
-
-
         infoHeader.appendChild(infoTitle)
         infoHeader.appendChild(infoTime)
 
@@ -46,8 +42,13 @@ export function recipesFactory(data){
         article.appendChild(image)
         article.appendChild(informations)
         article.setAttribute("class","recipe")
+        article.setAttribute("data-index-number",id)
         return article
     }
-    return {id,name,servings,ingredients,time,description,appliance,ustensils,getRecipesDOM}
     
+    function getIngredients(){
+        return ingredients.map(element => element.ingredient)
+    }
+
+    return {id,name,servings,ingredients,time,description,appliance,ustensils,getRecipesDOM,getIngredients}
 }

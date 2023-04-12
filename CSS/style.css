@@ -83,6 +83,19 @@ h1 {
   cursor: pointer;
 }
 
+.recettes-grille {
+  position: relative;
+}
+.recettes-grille .no-result {
+  top: 60px;
+  position: absolute;
+  width: 100%;
+  font-family: "Lato";
+  font-weight: 700;
+  color: #ED6454;
+  text-align: center;
+}
+
 .filter-container {
   display: flex;
 }
@@ -131,9 +144,16 @@ h1 {
   padding-left: 20px;
   margin-right: 20px;
   position: relative;
+  max-width: 80vw;
+}
+@media screen and (max-width: 480px) {
+  .filter-container .filter {
+    margin-right: 0;
+  }
 }
 .filter-container .filter::placeholder {
   color: #fff;
+  opacity: 1;
 }
 .filter-container .filter--ingredients {
   background-color: #3282F7;
@@ -163,9 +183,19 @@ h1 {
   top: 80px;
   font-weight: 400;
   line-height: 30px;
+  z-index: 20;
+}
+.filter-container .filter__list li {
+  cursor: pointer;
 }
 .filter-container [data-filter-open] {
-  width: 400px;
+  width: 600px;
+}
+
+#filter-1 ul, #filter-2 ul, #filter-3 ul {
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 600px;
+  column-gap: 20px;
 }
 
 .recipe {
@@ -179,6 +209,7 @@ h1 {
   width: 100%;
   height: 180px;
   border: none;
+  border-style: none;
 }
 .recipe__informations {
   padding: 20px 20px 30px 20px;

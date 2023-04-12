@@ -14,9 +14,6 @@
         &::placeholder{
             color: #b6b6b6;
         }
-        // &:focus{
-        //     outline: 3px solid #D04F4F ;
-        // }
     }
     .search-icon{
         position: absolute;
@@ -27,3 +24,16 @@
     }
 }
 
+.recettes-grille{
+
+    position: relative;
+    .no-result{
+        top: 60px;
+        position: absolute;
+        width: 100%;
+        font-family: 'Lato' ;
+        font-weight: 700;
+        color: $color-filter-3;
+        text-align: center;
+    }
+}

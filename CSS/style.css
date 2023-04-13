@@ -198,6 +198,38 @@ h1 {
   column-gap: 20px;
 }
 
+.filter-tags {
+  margin-top: 15px;
+  color: #fff;
+  display: flex;
+  font-family: "Lato";
+  font-size: 0.9rem;
+}
+.filter-tags .btn-tag {
+  display: flex;
+  align-items: center;
+  height: 37px;
+  padding: 0 20px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.filter-tags .btn-tag--ingredients {
+  background-color: #3282F7;
+}
+.filter-tags .btn-tag--appareils {
+  background-color: #68D9A4;
+}
+.filter-tags .btn-tag--ustensils {
+  background-color: #ED6454;
+}
+.filter-tags .btn-tag p {
+  margin-right: 10px;
+}
+.filter-tags .btn-tag i {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
 .recipe {
   border-radius: 5px;
   overflow: hidden;

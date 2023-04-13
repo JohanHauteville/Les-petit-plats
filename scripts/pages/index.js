@@ -1,13 +1,13 @@
 import {recipes} from '../../data/recipes.js'
 import {recipesFactory} from '../factories/recipesFactory.js'
 import {AddTag} from '../utils/filter.js'
+import closeFilter from '../utils/filter.js'
+import { Research } from '../utils/researchFct.js'
 
-
+export let arrayOfResearch=[]
 let arrayOfIngredientsTag
 let arrayOfUstensilsTag
 let arrayOfAppareilsTag
-
-
 
 export default function displayRecipes(data){
     const arrayOfRecipes = document.querySelector('.recettes-grille')
@@ -17,12 +17,14 @@ export default function displayRecipes(data){
         const recipesDOM = factorizedRecipe.getRecipesDOM()
         arrayOfRecipes.appendChild(recipesDOM)
     });
+    Research()
+
 }
 
 export function displayFilterTags(data,filter){
     let array=[]
     let listForFilterTags
-    if(filter==='INGREGIENTS'){
+    if(filter==='INGREDIENTS'){
         data.map(ingr => ingr.ingredients.map(element =>array.push(element.ingredient.toLowerCase())))
         listForFilterTags = document.querySelector('.filter.filter__list.filter--ingredients')
         listForFilterTags.innerHTML=""
@@ -37,7 +39,7 @@ export function displayFilterTags(data,filter){
         listForFilterTags.innerHTML=""
 
     } else if(filter===''){
-        arrayOfIngredientsTag = displayFilterTags(data,'INGREGIENTS')
+        arrayOfIngredientsTag = displayFilterTags(data,'INGREDIENTS')
         arrayOfUstensilsTag = displayFilterTags(data,'USTENSILS')
         arrayOfAppareilsTag = displayFilterTags(data,'APPAREILS')
     }else{
@@ -52,8 +54,8 @@ export function displayFilterTags(data,filter){
     arrayOfUniqueElement.forEach(tag=>{
         const listItem = document.createElement('li')
         listItem.addEventListener('click',e=>{
-            console.log('click!');
-            console.log(tag);
+            closeFilter(listForFilterTags)
+            AddTag(filter,tag)
         })
         listItem.textContent = tag
         listForFilterTags.appendChild(listItem)
@@ -62,7 +64,6 @@ export function displayFilterTags(data,filter){
 }
 
 async function init(){
-    // const importedRecipes = recipes
     displayRecipes(recipes)
     displayFilterTags(recipes,'')
 }

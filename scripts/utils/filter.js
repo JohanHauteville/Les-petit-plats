@@ -2,6 +2,7 @@ import {startResearch} from './searchBar.js'
 import {recipes} from '../../data/recipes.js'
 import { arrayOfResearch } from '../pages/index.js'
 import {arrayOfElementsToShow} from './searchBar.js'
+import { Research } from './researchFct.js'
 
 const arrayOfFilter = document.querySelectorAll("input.filter ")
 const arrayOfUL = document.querySelectorAll('.filter__list')
@@ -101,7 +102,7 @@ function showTag(){
         const newTagName = document.createElement('p')
         const newTagCloseIcon = document.createElement('i')
         newTagCloseIcon.setAttribute('class',"fa-regular fa-circle-xmark")
-        
+
         ///// CLOSE TAG////
         newTagCloseIcon.addEventListener('click',e=>{
             const indexToRemove = searchTag(element.tag)
@@ -127,48 +128,12 @@ function searchTag(occurence){
 
 const changeOnArrayOfFilterTag = document.querySelector('.filter-tags--ingredients')
 changeOnArrayOfFilterTag.addEventListener('DOMNodeInserted',e=>{
-    const arrayToFilter = [...new Set(arrayOfElementsToShow)]
     console.log(`AJOUT DETECTÉ`);
-    if(arrayOfFilterTag.length>0){
-        arrayOfFilterTag.forEach(element => {
-            // console.log(`nom a rechercher :${element.tag}`);
-            // console.log(`tableau avant :`);
-            // console.log(arrayToFilter);
-
-            startResearch(e,element.tag,arrayToFilter)
-            // console.log(`tableau après :`);
-            // console.log(arrayToFilter);
-            // console.log(`tableau genetal après :`);
-            // console.log(arrayOfElementsToShow);
-        }); 
-    } else {
-        console.log('tableau vide');
-        startResearch(e,'no')
-        // arrayOfElementsToShow= [...new Set(recipes)]
-
-    }
+    Research()
 })
 changeOnArrayOfFilterTag.addEventListener('DOMNodeRemoved',e=>{
-    const arrayToFilter = [...new Set(recipes)]
     console.log(`SUPPRESSION DETECTÉE`);
-    if(arrayOfFilterTag.length>0){
-        arrayOfFilterTag.forEach(element => {
-            // console.log(`nom a rechercher :${element.tag}`);
-            // console.log(`tableau avant :`);
-            // console.log(arrayToFilter);
-
-            startResearch(e,element.tag,arrayToFilter)
-            // console.log(`tableau après :`);
-            // console.log(arrayToFilter);
-            // console.log(`tableau genetal après :`);
-            // console.log(arrayOfElementsToShow);
-        }); 
-    } else {
-        console.log('tableau vide');
-        startResearch(e,'no')
-        // arrayOfElementsToShow= [...new Set(recipes)]
-
-    }
+    Research()
 })
 
 

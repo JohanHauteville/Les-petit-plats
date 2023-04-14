@@ -17,8 +17,7 @@ export default function displayRecipes(data){
         const recipesDOM = factorizedRecipe.getRecipesDOM()
         arrayOfRecipes.appendChild(recipesDOM)
     });
-    Research()
-
+    
 }
 
 export function displayFilterTags(data,filter){

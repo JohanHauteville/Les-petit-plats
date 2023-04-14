@@ -44,6 +44,17 @@ export function Research(){
         //ON VIDE LE TABLEAU QUI RECOIT LES RECETTES A AFFICHER
         arrayOfRecipesToDisplay=[]
     })
+
+    const presenceOfPError = document.querySelector('.no-result')
+    //Test si le NODE existe déjà et le supprime si c'est le cas pour eviter les doublons
+    presenceOfPError?presenceOfPError.remove():null
+    if(copyOfRecipes.length<=0){
+        const grille = document.querySelector('main')
+        const info = document.createElement('p')
+        info.textContent=` Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.`
+        info.setAttribute("class",'no-result')
+        grille.appendChild(info)
+    }
     console.log('tableau de Research:');
     console.log(copyOfRecipes);
     displayRecipes(copyOfRecipes)

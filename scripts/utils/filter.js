@@ -126,37 +126,22 @@ function searchTag(occurence){
     return (arrayOfFilterTag.map(e=>e.tag).indexOf(occurence))
 }
 
-const changeOnArrayOfFilterTag = document.querySelector('.filter-tags--ingredients')
-changeOnArrayOfFilterTag.addEventListener('DOMNodeInserted',e=>{
-    console.log(`AJOUT DETECTÉ`);
+// Selectionne les noeuds dont les mutations seront observées
+const changeOnIngredientsFilter = document.querySelector('.filter-tags--ingredients')
+const changeOnAppareilsFilter = document.querySelector('.filter-tags--appareils')
+const changeOnUstensilsFilter = document.querySelector('.filter-tags--ustensils')
+
+// Options de l'observateur (quelles sont les mutations à observer)
+let config = {  childList: true };
+
+// Créé une instance de l'observateur lié à la fonction de callback
+let observer = new MutationObserver(e=>{
+    console.log('Research proceding...');
     Research()
-})
-changeOnArrayOfFilterTag.addEventListener('DOMNodeRemoved',e=>{
-    console.log(`SUPPRESSION DETECTÉE`);
-    Research()
-})
 
+});
 
-//   // Selectionne le noeud dont les mutations seront observées
-// //var targetNode = document.getElementById('some-id');
-
-// // Options de l'observateur (quelles sont les mutations à observer)
-// var config = { attributes: true, childList: true };
-
-// // Fonction callback à éxécuter quand une mutation est observée
-// var callback = function(mutationsList) {
-//     for(var mutation of mutationsList) {
-//         if (mutation.type == 'childList') {
-//             console.log('Un noeud enfant a été ajouté ou supprimé.');
-//         }
-//         else if (mutation.type == 'attributes') {
-//             console.log("L'attribut '" + mutation.attributeName + "' a été modifié.");
-//         }
-//     }
-// };
-
-// // Créé une instance de l'observateur lié à la fonction de callback
-// var observer = new MutationObserver(callback);
-
-// // Commence à observer le noeud cible pour les mutations précédemment configurées
-// observer.observe(changeOnArrayOfFilterTag, config);
+// Commence à observer les noeuds cibles pour les mutations précédemment configurées
+observer.observe(changeOnIngredientsFilter, config);
+observer.observe(changeOnAppareilsFilter, config)
+observer.observe(changeOnUstensilsFilter, config)

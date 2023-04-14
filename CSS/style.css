@@ -83,19 +83,6 @@ h1 {
   cursor: pointer;
 }
 
-.recettes-grille {
-  position: relative;
-}
-.recettes-grille .no-result {
-  top: 60px;
-  position: absolute;
-  width: 100%;
-  font-family: "Lato";
-  font-weight: 700;
-  color: #ED6454;
-  text-align: center;
-}
-
 .filter-container {
   display: flex;
 }
@@ -268,6 +255,16 @@ h1 {
   font-weight: 700;
 }
 
+.no-result {
+  top: 250px;
+  position: absolute;
+  width: 100%;
+  font-family: "Lato";
+  font-weight: 700;
+  color: #ED6454;
+  text-align: center;
+}
+
 body {
   margin: 0 100px 0 100px;
 }
@@ -288,6 +285,7 @@ svg {
 }
 
 .recettes-grille {
+  position: relative;
   margin-top: 25px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -307,6 +305,10 @@ svg {
   .recettes-grille {
     grid-template-columns: 1fr;
   }
+}
+
+main {
+  position: relative;
 }
 
 /*# sourceMappingURL=style.css.map */

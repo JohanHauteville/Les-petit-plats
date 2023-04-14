@@ -13,20 +13,22 @@ export function Research(){
 
     copyOfResearch.forEach(research=>{
         if(research.section==='INGREDIENTS'){
-            console.log("Ingredient trouvé");
-
             copyOfRecipes.forEach(recipe=>{
                 researchIngredient(research.words,recipe)
             })
-            
-            
         }else if(research.section==='USTENSILS'){
             console.log("Ustensile trouvé");
 
+            copyOfRecipes.forEach(recipe=>{
+                researchUstensils(research.words,recipe)
+            })
     
         }else if(research.section==='APPAREILS'){
             console.log("Appareil trouvé");
-
+            
+            copyOfRecipes.forEach(recipe=>{
+                researchAppareils(research.words,recipe)
+            })
     
         } else if(research.section==='Principal'){
             console.log("Phrase principale trouvé");
@@ -83,11 +85,22 @@ export function researchIngredient(word,recipe){
     const testNumber = recipe.ingredients.map(e=>e.ingredient.toLocaleLowerCase().search(word.toLocaleLowerCase())); 
     testNumber.forEach(element =>{
         if(element>=0){
-            //arrayOfRecipesToDisplay.some(recipe=>recipe.)
             arrayOfRecipesToDisplay.push(recipe)
-            return true
-        }else{
-            return false
         }
     })
+}
+
+export function researchUstensils(word,recipe){
+    const testNumber = recipe.ustensils.map(e=>e.toLocaleLowerCase().search(word.toLocaleLowerCase())); 
+    testNumber.forEach(element =>{
+        if(element>=0){
+            arrayOfRecipesToDisplay.push(recipe)
+        }
+    })
+}
+
+export function researchAppareils(word,recipe){
+    if(recipe.appliance.toLocaleLowerCase()===word.toLocaleLowerCase()){
+        arrayOfRecipesToDisplay.push(recipe)
+    }
 }

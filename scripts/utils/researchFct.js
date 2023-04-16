@@ -10,6 +10,7 @@ export function Research(){
 
     let copyOfRecipes = [...new Set(recipes)]
     let copyOfResearch = [...new Set(arrayOfResearch)]
+    console.log(copyOfResearch);
 
     copyOfResearch.forEach(research=>{
         if(research.section==='INGREDIENTS'){
@@ -18,7 +19,6 @@ export function Research(){
             })
         }else if(research.section==='USTENSILS'){
             console.log("Ustensile trouvé");
-
             copyOfRecipes.forEach(recipe=>{
                 researchUstensils(research.words,recipe)
             })
@@ -32,11 +32,11 @@ export function Research(){
     
         } else if(research.section==='Principal'){
             console.log("Phrase principale trouvé");
+            console.log();
             copyOfRecipes.forEach(recipe=>{
-                if(researchName(research.words,recipe)){
-                }else if(researchDescription(research.words,recipe)){
-                }else if(researchIngredient(research.words,recipe)){
-                }
+                researchName(research.words,recipe)
+                researchDescription(research.words,recipe)
+                researchIngredient(research.words,recipe)
             })
         }else{
             console.log('Pas de filtre correspondant');
@@ -63,44 +63,40 @@ export function Research(){
     displayFilterTags(copyOfRecipes,'')
 }
 
-export function researchName(word,recipe){
-    if((recipe.name.toLocaleLowerCase().search(word.toLocaleLowerCase())>=0)){
-        arrayOfRecipesToDisplay.push(recipe)
-        return true
-    }else{
-        return false
+export function researchName(word,listOfRecipes){
+    if(listOfRecipes.name.toLowerCase().includes(word.toLowerCase())){
+        arrayOfRecipesToDisplay.push(listOfRecipes)
+
     }
 }
 
-export function researchDescription(word,recipe){
-    if((recipe.description.toLocaleLowerCase().search(word.toLocaleLowerCase())>=0)){
-        arrayOfRecipesToDisplay.push(recipe)
-        return true
-    }else{
-        return false
+export function researchDescription(word,listOfRecipes){
+    if(listOfRecipes.description.toLowerCase().includes(word.toLowerCase())){
+        arrayOfRecipesToDisplay.push(listOfRecipes)
+
     }
 }
 
-export function researchIngredient(word,recipe){
-    const testNumber = recipe.ingredients.map(e=>e.ingredient.toLocaleLowerCase().search(word.toLocaleLowerCase())); 
+export function researchIngredient(word,listOfRecipes){
+    const testNumber = listOfRecipes.ingredients.map(e=>e.ingredient.toLowerCase().includes(word.toLowerCase())); 
     testNumber.forEach(element =>{
-        if(element>=0){
-            arrayOfRecipesToDisplay.push(recipe)
+        if(element){
+            arrayOfRecipesToDisplay.push(listOfRecipes)
         }
     })
 }
 
-export function researchUstensils(word,recipe){
-    const testNumber = recipe.ustensils.map(e=>e.toLocaleLowerCase().search(word.toLocaleLowerCase())); 
+export function researchUstensils(word,listOfRecipes){
+    const testNumber = listOfRecipes.ustensils.map(e=>e.toLowerCase().includes(word.toLowerCase())); 
     testNumber.forEach(element =>{
-        if(element>=0){
-            arrayOfRecipesToDisplay.push(recipe)
+        if(element){
+            arrayOfRecipesToDisplay.push(listOfRecipes)
         }
     })
 }
 
-export function researchAppareils(word,recipe){
-    if(recipe.appliance.toLocaleLowerCase()===word.toLocaleLowerCase()){
-        arrayOfRecipesToDisplay.push(recipe)
+export function researchAppareils(word,listOfRecipes){
+    if(listOfRecipes.appliance.toLowerCase()===word.toLowerCase()){
+        arrayOfRecipesToDisplay.push(listOfRecipes)
     }
 }

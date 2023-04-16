@@ -46,9 +46,6 @@ export function recipesFactory(data){
         return article
     }
     
-    function getIngredients(){
-        return ingredients.map(element => element.ingredient)
-    }
 
-    return {id,name,servings,ingredients,time,description,appliance,ustensils,getRecipesDOM,getIngredients}
+    return {id,name,servings,ingredients,time,description,appliance,ustensils,getRecipesDOM}
 }

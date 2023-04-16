@@ -11,7 +11,7 @@ export let arrayOfElementsToShow= [...new Set(recipes)]
 
 
 
-// export function startResearch(e,word){
+
 export function startResearch(e,word){
 
         valueOfResearch = e.target.value
@@ -24,11 +24,11 @@ export function startResearch(e,word){
                     arrayOfResearch.splice(index,1)
                 }
             })
-        //Ajoute la phrase principale au tableau de recherche
-        arrayOfResearch.push(principalWord)
-        
-        //Lancement de la recherche
-        Research()
+            //Ajoute la phrase principale au tableau de recherche
+            arrayOfResearch.push(principalWord)
+            
+            //Lancement de la recherche
+            Research()
 
         }else{
             arrayOfResearch.forEach((element,index)=>{
@@ -37,8 +37,9 @@ export function startResearch(e,word){
                         arrayOfResearch.splice(index,1)
                     }
             })
-            displayRecipes(recipes)
-            displayFilterTags(recipes,'')
+            // displayRecipes(recipes)
+            // displayFilterTags(recipes,'')
+            Research()
         }
 
 }

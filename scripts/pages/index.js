@@ -53,6 +53,7 @@ export function displayFilterTags(data,filter){
     arrayOfUniqueElement.forEach(tag=>{
         const listItem = document.createElement('li')
         listItem.addEventListener('click',e=>{
+            console.log("click sur liste");
             closeFilter(listForFilterTags)
             AddTag(filter,tag)
         })

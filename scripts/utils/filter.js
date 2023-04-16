@@ -18,14 +18,32 @@ arrayOfFilter.forEach(filter =>{
 
         handlePlaceholder(id,filter)
     })
-    // filter.addEventListener("focusout",function(){
-    //     const id = filter.parentNode.getAttribute("id")
-    //     filter.parentNode.removeAttribute("class")
-    //     filter.parentNode.setAttribute("class","chevron-up")
-    //     filter.nextElementSibling.style.display = "none"
-    //     handlePlaceholder(id,filter)
-    //     filter.removeAttribute("data-filter-open")
-    // })
+    filter.addEventListener("input",e=>{
+        if(e.target.value.length>=3){
+            const arraytotest = filter.nextElementSibling.querySelectorAll("li")
+            arraytotest.forEach(element=>{
+                if(element.innerText.toLowerCase().search(e.target.value.toLowerCase())>=0){
+                    element.style.display = "inline"
+                } else {
+                    element.style.display = "none"
+                }
+            })
+
+        } else {
+            const arraytotest = filter.nextElementSibling.querySelectorAll("li")
+            arraytotest.forEach(element=>element.style.display = "inline")
+        }
+
+    })
+    filter.addEventListener("blur",function(){
+        const id = filter.parentNode.getAttribute("id")
+        filter.parentNode.removeAttribute("class")
+        filter.parentNode.setAttribute("class","chevron-up")
+        setTimeout(e=>{
+            filter.nextElementSibling.style.display = "none"
+        },150)
+        filter.removeAttribute("data-filter-open")
+    })
 })
 
 export default function closeFilter(filter){
@@ -36,7 +54,6 @@ export default function closeFilter(filter){
     handlePlaceholder(id,filter.previousElementSibling)
     filter.previousElementSibling.removeAttribute("data-filter-open")
 }
-
 
 function handlePlaceholder(id,filter){
     const placeholder = filter.getAttribute("placeholder")
@@ -138,7 +155,6 @@ let config = {  childList: true };
 let observer = new MutationObserver(e=>{
     console.log('Research proceding...');
     Research()
-
 });
 
 // Commence à observer les noeuds cibles pour les mutations précédemment configurées

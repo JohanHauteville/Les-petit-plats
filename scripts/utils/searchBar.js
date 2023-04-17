@@ -1,6 +1,7 @@
+//////// CODE DE LA BARRE DE RECHERCHE PRINCIPALES /////////
+
+
 import {recipes} from '../../data/recipes.js'
-import displayRecipes from '../pages/index.js'
-import {displayFilterTags} from '../pages/index.js'
 import { arrayOfResearch } from '../pages/index.js'
 import { Research } from '../utils/researchFct.js'
 
@@ -13,7 +14,6 @@ export let arrayOfElementsToShow= [...new Set(recipes)]
 
 
 export function startResearch(e,word){
-
         valueOfResearch = e.target.value
         if(valueOfResearch.length>=3){
             //Permet d'ajouter la phrase de recherche principale dans un tableau de recherche
@@ -37,8 +37,6 @@ export function startResearch(e,word){
                         arrayOfResearch.splice(index,1)
                     }
             })
-            // displayRecipes(recipes)
-            // displayFilterTags(recipes,'')
             Research()
         }
 

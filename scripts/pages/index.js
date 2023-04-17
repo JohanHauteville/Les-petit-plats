@@ -4,14 +4,18 @@ import {AddTag} from '../utils/filter.js'
 import closeFilter from '../utils/filter.js'
 import { Research } from '../utils/researchFct.js'
 
+
 export let arrayOfResearch=[]
 let arrayOfIngredientsTag
 let arrayOfUstensilsTag
 let arrayOfAppareilsTag
 
+// FONCTION D'AFFICHAGE DES RECETTES
 export default function displayRecipes(data){
     const arrayOfRecipes = document.querySelector('.recettes-grille')
+    // vide les recettes déjà présente avant d'ajouter les nouvelles
     arrayOfRecipes.innerHTML=''
+    
     data.forEach(recipe => {
         const factorizedRecipe = recipesFactory(recipe)
         const recipesDOM = factorizedRecipe.getRecipesDOM()
@@ -63,9 +67,11 @@ export function displayFilterTags(data,filter){
     return arrayOfUniqueElement;
 }
 
-async function init(){
-    displayRecipes(recipes)
-    displayFilterTags(recipes,'')
+// FONCTION D'INITIALISATION DE LA PAGE
+function init(){
+    // initialise une première recherche sans critères
+    // et donc retourne l'intégralité des recettes et des filtres
+    Research()
 }
 
 

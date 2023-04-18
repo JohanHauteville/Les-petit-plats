@@ -1,102 +1,112 @@
-import {recipes} from '../../data/recipes.js'
+//////// CODE DES FONCTIONS DE RECHERCHE /////////
+
+import { recipes } from '../../data/recipes.js'
 import displayRecipes from '../pages/index.js'
-import {displayFilterTags} from '../pages/index.js'
+import { displayFilterTags } from '../pages/index.js'
 import { arrayOfResearch } from '../pages/index.js'
 
-let arrayOfRecipesToDisplay=[]
+let arrayOfRecipesToDisplay = []
 
-export function Research(){
-    arrayOfRecipesToDisplay=[]
+// FONCTION DE RECHERCHE PRINCIPALE
+export function Research() {
+    arrayOfRecipesToDisplay = []
 
+    // Copies du tableau de recettes ainsi que du tableau de critère de recherche
     let copyOfRecipes = [...new Set(recipes)]
     let copyOfResearch = [...new Set(arrayOfResearch)]
-    console.log(copyOfResearch);
 
-    copyOfResearch.forEach(research=>{
-        if(research.section==='INGREDIENTS'){
-            copyOfRecipes.forEach(recipe=>{
-                researchIngredient(research.words,recipe)
+    // POUR CHAQUE CRITERES DE RECHERCHE
+    copyOfResearch.forEach(research => {
+        if (research.section === 'INGREDIENTS') {
+            copyOfRecipes.forEach(recipe => {
+                researchIngredient(research.words, recipe)
             })
-        }else if(research.section==='USTENSILS'){
-            console.log("Ustensile trouvé");
-            copyOfRecipes.forEach(recipe=>{
-                researchUstensils(research.words,recipe)
+        } else if (research.section === 'USTENSILS') {
+            copyOfRecipes.forEach(recipe => {
+                researchUstensils(research.words, recipe)
             })
-    
-        }else if(research.section==='APPAREILS'){
-            console.log("Appareil trouvé");
-            
-            copyOfRecipes.forEach(recipe=>{
-                researchAppareils(research.words,recipe)
+        } else if (research.section === 'APPAREILS') {
+            copyOfRecipes.forEach(recipe => {
+                researchAppareils(research.words, recipe)
             })
-    
-        } else if(research.section==='Principal'){
-            console.log("Phrase principale trouvé");
-            console.log();
-            copyOfRecipes.forEach(recipe=>{
-                researchName(research.words,recipe)
-                researchDescription(research.words,recipe)
-                researchIngredient(research.words,recipe)
+
+        } else if (research.section === 'Principal') {
+            copyOfRecipes.forEach(recipe => {
+                researchName(research.words, recipe)
+                researchDescription(research.words, recipe)
+                researchIngredient(research.words, recipe)
             })
-        }else{
+        } else {
             console.log('Pas de filtre correspondant');
         }
         // SUPPRIME LES DOUBLONS
-        copyOfRecipes= [...new Set(arrayOfRecipesToDisplay)]
+        copyOfRecipes = [...new Set(arrayOfRecipesToDisplay)]
         //ON VIDE LE TABLEAU QUI RECOIT LES RECETTES A AFFICHER
-        arrayOfRecipesToDisplay=[]
+        arrayOfRecipesToDisplay = []
     })
 
     const presenceOfPError = document.querySelector('.no-result')
     //Test si le NODE existe déjà et le supprime si c'est le cas pour eviter les doublons
-    presenceOfPError?presenceOfPError.remove():null
-    if(copyOfRecipes.length<=0){
+    presenceOfPError ? presenceOfPError.remove() : null
+
+    // SI le tableau de recettes est vide et donc qu'aucune recette de correspond aux critères de recherche
+    // on affiche alors le message
+    if (copyOfRecipes.length <= 0) {
         const grille = document.querySelector('main')
         const info = document.createElement('p')
-        info.textContent=` Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.`
-        info.setAttribute("class",'no-result')
+        info.textContent = ` Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.`
+        info.setAttribute("class", 'no-result')
         grille.appendChild(info)
     }
-    console.log('tableau de Research:');
-    console.log(copyOfRecipes);
+
+    // affiche les recettes correspondantes aux critères de recherche
     displayRecipes(copyOfRecipes)
-    displayFilterTags(copyOfRecipes,'')
+    // affiche les liste de tags possibles correspondantes aux critères de recherche
+    displayFilterTags(copyOfRecipes, '')
 }
 
-export function researchName(word,listOfRecipes){
-    if(listOfRecipes.name.toLowerCase().includes(word.toLowerCase())){
+// FONCTION DE RECHERCHE PAR NOM
+export function researchName(word, listOfRecipes) {
+    if (listOfRecipes.name.toLowerCase().includes(word.toLowerCase())) {
+        // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)
-
     }
 }
 
-export function researchDescription(word,listOfRecipes){
-    if(listOfRecipes.description.toLowerCase().includes(word.toLowerCase())){
+// FONCTION DE RECHERCHE PAR DESCRIPTION
+export function researchDescription(word, listOfRecipes) {
+    if (listOfRecipes.description.toLowerCase().includes(word.toLowerCase())) {
+       // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)
-
     }
 }
 
-export function researchIngredient(word,listOfRecipes){
-    const testNumber = listOfRecipes.ingredients.map(e=>e.ingredient.toLowerCase().includes(word.toLowerCase())); 
-    testNumber.forEach(element =>{
-        if(element){
+// FONCTION DE RECHERCHE PAR INGRÉDIENTS
+export function researchIngredient(word, listOfRecipes) {
+    const testNumber = listOfRecipes.ingredients.map(e => e.ingredient.toLowerCase().includes(word.toLowerCase()));
+    testNumber.forEach(element => {
+        if (element) {
+            // Ajoute la recette au tableau de recette à afficher
             arrayOfRecipesToDisplay.push(listOfRecipes)
         }
     })
 }
 
-export function researchUstensils(word,listOfRecipes){
-    const testNumber = listOfRecipes.ustensils.map(e=>e.toLowerCase().includes(word.toLowerCase())); 
-    testNumber.forEach(element =>{
-        if(element){
+// FONCTION DE RECHERCHE PAR USTENSILES
+export function researchUstensils(word, listOfRecipes) {
+    const testNumber = listOfRecipes.ustensils.map(e => e.toLowerCase().includes(word.toLowerCase()));
+    testNumber.forEach(element => {
+        if (element) {
+            // Ajoute la recette au tableau de recette à afficher
             arrayOfRecipesToDisplay.push(listOfRecipes)
         }
     })
 }
 
-export function researchAppareils(word,listOfRecipes){
-    if(listOfRecipes.appliance.toLowerCase()===word.toLowerCase()){
+// FONCTION DE RECHERCHE PAR APPAREILS
+export function researchAppareils(word, listOfRecipes) {
+    if (listOfRecipes.appliance.toLowerCase() === word.toLowerCase()) {
+        // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)
     }
 }

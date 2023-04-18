@@ -1,21 +1,17 @@
-import {recipes} from '../../data/recipes.js'
 import {recipesFactory} from '../factories/recipesFactory.js'
 import {AddTag} from '../utils/filter.js'
 import closeFilter from '../utils/filter.js'
 import { Research } from '../utils/researchFct.js'
 
-
+// Initialisation de la variable qui contiendra la totalité des crières de recherche
 export let arrayOfResearch=[]
-let arrayOfIngredientsTag
-let arrayOfUstensilsTag
-let arrayOfAppareilsTag
 
 // FONCTION D'AFFICHAGE DES RECETTES
 export default function displayRecipes(data){
     const arrayOfRecipes = document.querySelector('.recettes-grille')
     // vide les recettes déjà présente avant d'ajouter les nouvelles
     arrayOfRecipes.innerHTML=''
-    
+    // Créer la card recette pour chacune des recette présente dans "data"
     data.forEach(recipe => {
         const factorizedRecipe = recipesFactory(recipe)
         const recipesDOM = factorizedRecipe.getRecipesDOM()
@@ -24,9 +20,12 @@ export default function displayRecipes(data){
     
 }
 
+// FONCTION D'AFFICHAGE DE LA LISTE DE TAG POUR LE/LES FILTRES
 export function displayFilterTags(data,filter){
-    let array=[]
-    let listForFilterTags
+    let array=[]            //initialisation du tableau d'affichage
+    let listForFilterTags   //initialisation du selecteur utilisé pour ciblé les filtres
+
+    // Chaque condition ajoutera l'intégralité des tags contenus dans "data" en fonction du filtre spécifié
     if(filter==='INGREDIENTS'){
         data.map(ingr => ingr.ingredients.map(element =>array.push(element.ingredient.toLowerCase())))
         listForFilterTags = document.querySelector('.filter.filter__list.filter--ingredients')
@@ -35,29 +34,33 @@ export function displayFilterTags(data,filter){
         data.map(ust => ust.ustensils.map(  element =>array.push(element.toLowerCase())))
          listForFilterTags = document.querySelector('.filter.filter__list.filter--ustensiles')
         listForFilterTags.innerHTML=""
-
     }else if(filter==='APPAREILS'){
         data.map(element =>array.push(element.appliance.toLowerCase()))
          listForFilterTags = document.querySelector('.filter.filter__list.filter--appareils')
         listForFilterTags.innerHTML=""
-
     } else if(filter===''){
-        arrayOfIngredientsTag = displayFilterTags(data,'INGREDIENTS')
-        arrayOfUstensilsTag = displayFilterTags(data,'USTENSILS')
-        arrayOfAppareilsTag = displayFilterTags(data,'APPAREILS')
+        // Si rien n'est spécifié alors nous allons utiliser la récurrence pour afficher l'intégralité des filtres
+        displayFilterTags(data,'INGREDIENTS')
+        displayFilterTags(data,'USTENSILS')
+        displayFilterTags(data,'APPAREILS')
     }else{
         console.log('Pas de filtre correspondant');
     }
-    
+    // permet de supprimer les doublons contenus dans le tableau
     const arrayOfUniqueElement=[...new Set(array)]
+
+    // Dans les filtrages précédents nous avons formater les tags pour n'utiliser que les minuscules
+    // Cela permet d'éviter les problèmes d'affichage (des majuscules en trop,..)
+    // ICI nous allons faire en sort que seule la première lettre soit en majuscule
     arrayOfUniqueElement.forEach(function (part,index){
         arrayOfUniqueElement[index] = part.charAt(0).toUpperCase() + part.slice(1)
     })
     
+    // création pour chaque tag contenu dans le tableau d'un list item
     arrayOfUniqueElement.forEach(tag=>{
         const listItem = document.createElement('li')
+        // Lors du click, on ferme le filtre puis on ajoute le tag dans le tableau des critères de recherche
         listItem.addEventListener('click',e=>{
-            console.log("click sur liste");
             closeFilter(listForFilterTags)
             AddTag(filter,tag)
         })
@@ -75,5 +78,5 @@ function init(){
 }
 
 
-
+// DÉMARRE L'INITIALISATION DE LA PAGE
 init()

@@ -120,7 +120,7 @@ h1 {
   cursor: pointer;
 }
 .filter-container .filter {
-  margin-top: 15px;
+  margin-top: 20px;
   height: 69px;
   width: 170px;
   color: #fff;
@@ -180,20 +180,22 @@ h1 {
   width: 600px;
 }
 
-#filter-1 ul, #filter-2 ul, #filter-3 ul {
+#filter-1 ul,
+#filter-2 ul,
+#filter-3 ul {
   grid-template-columns: 1fr 1fr 1fr;
   width: 600px;
   column-gap: 20px;
 }
 
 .filter-tags {
-  margin-top: 15px;
   color: #fff;
   display: flex;
   font-family: "Lato";
   font-size: 0.9rem;
 }
 .filter-tags .btn-tag {
+  margin-top: 20px;
   display: flex;
   align-items: center;
   height: 37px;

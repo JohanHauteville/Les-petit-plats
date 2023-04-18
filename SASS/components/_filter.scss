@@ -1,15 +1,16 @@
-
-
-.filter-container{
+.filter-container {
     display: flex;
     flex-wrap: wrap;
-    @include pad{
+
+    @include pad {
         flex-wrap: wrap;
         justify-content: center;
     }
-    .chevron-up{
+
+    .chevron-up {
         position: relative;
-        &::after{
+
+        &::after {
             font-family: 'Font Awesome 6 Free';
             content: ' \f078';
             color: #fff;
@@ -20,9 +21,11 @@
             cursor: pointer;
         }
     }
-    .chevron-down{
+
+    .chevron-down {
         position: relative;
-        &::after{
+
+        &::after {
             font-family: 'Font Awesome 6 Free';
             content: ' \f077';
             color: #fff;
@@ -33,8 +36,9 @@
             cursor: pointer;
         }
     }
-    .filter{
-        margin-top: 15px;
+
+    .filter {
+        margin-top: 20px;
         height: 69px;
         width: 170px;
         color: #fff;
@@ -47,32 +51,41 @@
         margin-right: 20px;
         position: relative;
         max-width: 80vw;
-        @include mobile{
+
+        @include mobile {
             margin-right: 0;
         }
-        &::placeholder{
+
+        &::placeholder {
             color: #fff;
             opacity: 1;
         }
-        &--ingredients{
+
+        &--ingredients {
             background-color: $color-filter-1;
-            &:focus::placeholder{
+
+            &:focus::placeholder {
                 color: lighten($color-filter-1 , 20);
             }
         }
-        &--appareils{
+
+        &--appareils {
             background-color: $color-filter-2;
-            &:focus::placeholder{
+
+            &:focus::placeholder {
                 color: lighten($color-filter-2 , 20);
             }
         }
-        &--ustensiles{
+
+        &--ustensiles {
             background-color: $color-filter-3;
-            &:focus::placeholder{
+
+            &:focus::placeholder {
                 color: lighten($color-filter-3 , 20);
             }
         }
-        &__list{
+
+        &__list {
             display: none;
             margin-top: 0;
             padding-bottom: 20px;
@@ -83,51 +96,62 @@
             font-weight: 400;
             line-height: 30px;
             z-index: 20;
-            li{
+
+            li {
                 cursor: pointer;
             }
         }
     }
-    [data-filter-open]{
+
+    [data-filter-open] {
         width: 600px;
     }
 
 }
 
-#filter-1, #filter-2, #filter-3{
-    ul{
+#filter-1,
+#filter-2,
+#filter-3 {
+    ul {
         grid-template-columns: 1fr 1fr 1fr;
         width: 600px;
         column-gap: 20px;
     }
 }
 
-.filter-tags{
-    margin-top: 15px;
+.filter-tags {
+
     color: #fff;
     display: flex;
     font-family: 'Lato';
     font-size: 0.9rem;
-    .btn-tag{
+
+    .btn-tag {
+        margin-top: 20px;
         display: flex;
         align-items: center;
         height: 37px;
         padding: 0 20px;
         border-radius: 5px;
         margin-right: 10px;
-        &--ingredients{
+
+        &--ingredients {
             background-color: $color-filter-1;
         }
-        &--appareils{
+
+        &--appareils {
             background-color: $color-filter-2;
         }
-        &--ustensils{
+
+        &--ustensils {
             background-color: $color-filter-3;
         }
-        p{
+
+        p {
             margin-right: 10px;
         }
-        i{
+
+        i {
             font-size: 1.2rem;
             cursor: pointer;
         }

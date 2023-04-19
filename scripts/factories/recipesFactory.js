@@ -25,11 +25,21 @@ export function recipesFactory(data) {
         // LISTE DES INGRÉDIENTS //
         const infoIngredients = document.createElement('ul')
         // AJOUTE DES INGRÉDIENTS DANS LES INGREDIENTS
-        ingredients.forEach(ingredient => {
+
+        for (let index = 0; index < ingredients.length; index++) {
+            //const element = array[index];
             const ingredientsElement = document.createElement('li')
-            ingredientsElement.innerHTML = `<span class="recipe__ingredients-title">${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit ? ingredient.unit : ""} `
+            ingredientsElement.innerHTML = `<span class="recipe__ingredients-title">${ingredients[index].ingredient}:</span> ${ingredients[index].quantity} ${ingredients[index].unit ? ingredients[index].unit : ""} `
             infoIngredients.appendChild(ingredientsElement)
-        });
+            
+        }
+
+        // ES6 
+        // ingredients.forEach(ingredient => {
+        //     const ingredientsElement = document.createElement('li')
+        //     ingredientsElement.innerHTML = `<span class="recipe__ingredients-title">${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit ? ingredient.unit : ""} `
+        //     infoIngredients.appendChild(ingredientsElement)
+        // });
 
         // DESCRIPTION //
         const infoDescription = document.createElement('p')

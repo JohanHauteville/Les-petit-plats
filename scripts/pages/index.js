@@ -1,68 +1,83 @@
-import {recipesFactory} from '../factories/recipesFactory.js'
-import {AddTag} from '../utils/filter.js'
+import { recipesFactory } from '../factories/recipesFactory.js'
+import { AddTag } from '../utils/filter.js'
 import closeFilter from '../utils/filter.js'
 import { Research } from '../utils/researchFct.js'
 
 // Initialisation de la variable qui contiendra la totalité des crières de recherche
-export let arrayOfResearch=[]
+export let arrayOfResearch = []
 
 // FONCTION D'AFFICHAGE DES RECETTES
-export default function displayRecipes(data){
+export default function displayRecipes(data) {
     const arrayOfRecipes = document.querySelector('.recettes-grille')
     // vide les recettes déjà présente avant d'ajouter les nouvelles
-    arrayOfRecipes.innerHTML=''
+    arrayOfRecipes.innerHTML = ''
     // Créer la card recette pour chacune des recette présente dans "data"
-    data.forEach(recipe => {
-        const factorizedRecipe = recipesFactory(recipe)
+    for (let index = 0; index < data.length; index++) {
+        const factorizedRecipe = recipesFactory(data[index])
         const recipesDOM = factorizedRecipe.getRecipesDOM()
         arrayOfRecipes.appendChild(recipesDOM)
-    });
-    
+    }
 }
 
 // FONCTION D'AFFICHAGE DE LA LISTE DE TAG POUR LE/LES FILTRES
-export function displayFilterTags(data,filter){
-    let array=[]            //initialisation du tableau d'affichage
-    let listForFilterTags   //initialisation du selecteur utilisé pour ciblé les filtres
+export function displayFilterTags(data, filter) {
+    let array = []              //initialisation du tableau d'affichage
+    let listForFilterTags       //initialisation du selecteur utilisé pour ciblé les filtres
 
     // Chaque condition ajoutera l'intégralité des tags contenus dans "data" en fonction du filtre spécifié
-    if(filter==='INGREDIENTS'){
-        data.map(ingr => ingr.ingredients.map(element =>array.push(element.ingredient.toLowerCase())))
+    if (filter === 'INGREDIENTS') {
+        for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+            for (let j = 0; j < data[index].ingredients.length; j++) {
+                const element = data[index][j];
+                array.push(data[index].ingredients[j].ingredient.toLowerCase())
+            }
+        }
         listForFilterTags = document.querySelector('.filter.filter__list.filter--ingredients')
-        listForFilterTags.innerHTML=""
-    }else if(filter==='USTENSILS'){
-        data.map(ust => ust.ustensils.map(  element =>array.push(element.toLowerCase())))
-         listForFilterTags = document.querySelector('.filter.filter__list.filter--ustensiles')
-        listForFilterTags.innerHTML=""
-    }else if(filter==='APPAREILS'){
-        data.map(element =>array.push(element.appliance.toLowerCase()))
-         listForFilterTags = document.querySelector('.filter.filter__list.filter--appareils')
-        listForFilterTags.innerHTML=""
-    } else if(filter===''){
+        listForFilterTags.innerHTML = ""
+    } else if (filter === 'USTENSILS') {
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            for (let j = 0; j < data[i].ustensils.length; j++) {
+                const element = array[j];
+                array.push(data[i].ustensils[j].toLowerCase())
+            }
+        }
+        listForFilterTags = document.querySelector('.filter.filter__list.filter--ustensiles')
+        listForFilterTags.innerHTML = ""
+    } else if (filter === 'APPAREILS') {
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            array.push(data[i].appliance.toLowerCase())
+        }
+        listForFilterTags = document.querySelector('.filter.filter__list.filter--appareils')
+        listForFilterTags.innerHTML = ""
+    } else if (filter === '') {
         // Si rien n'est spécifié alors nous allons utiliser la récurrence pour afficher l'intégralité des filtres
-        displayFilterTags(data,'INGREDIENTS')
-        displayFilterTags(data,'USTENSILS')
-        displayFilterTags(data,'APPAREILS')
-    }else{
+        displayFilterTags(data, 'INGREDIENTS')
+        displayFilterTags(data, 'USTENSILS')
+        displayFilterTags(data, 'APPAREILS')
+    } else {
         console.log('Pas de filtre correspondant');
     }
     // permet de supprimer les doublons contenus dans le tableau
-    const arrayOfUniqueElement=[...new Set(array)]
+    const arrayOfUniqueElement = deleteCopiesInArray(array)
+
 
     // Dans les filtrages précédents nous avons formater les tags pour n'utiliser que les minuscules
     // Cela permet d'éviter les problèmes d'affichage (des majuscules en trop,..)
     // ICI nous allons faire en sort que seule la première lettre soit en majuscule
-    arrayOfUniqueElement.forEach(function (part,index){
+    arrayOfUniqueElement.forEach(function (part, index) {
         arrayOfUniqueElement[index] = part.charAt(0).toUpperCase() + part.slice(1)
     })
-    
+
     // création pour chaque tag contenu dans le tableau d'un list item
-    arrayOfUniqueElement.forEach(tag=>{
+    arrayOfUniqueElement.forEach(tag => {
         const listItem = document.createElement('li')
         // Lors du click, on ferme le filtre puis on ajoute le tag dans le tableau des critères de recherche
-        listItem.addEventListener('click',e=>{
+        listItem.addEventListener('click', e => {
             closeFilter(listForFilterTags)
-            AddTag(filter,tag)
+            AddTag(filter, tag)
         })
         listItem.textContent = tag
         listForFilterTags.appendChild(listItem)
@@ -71,7 +86,7 @@ export function displayFilterTags(data,filter){
 }
 
 // FONCTION D'INITIALISATION DE LA PAGE
-function init(){
+function init() {
     // initialise une première recherche sans critères
     // et donc retourne l'intégralité des recettes et des filtres
     Research()
@@ -80,3 +95,33 @@ function init(){
 
 // DÉMARRE L'INITIALISATION DE LA PAGE
 init()
+
+
+function deleteCopiesInArray(arrayToCompare) {
+    let arrayToReturn = []
+    // pour chacunes des itérations ..
+    for (let i = 0; i < arrayToCompare.length; i++) {
+        // si le tableau à retourner est videe ...
+        if (arrayToReturn.length === 0) {
+            // on ajoute la première itérations de notre tableau à comparer
+            arrayToReturn.push(arrayToCompare[i])
+        }
+        //on récupère la taille du tableau à retourner pour pouvoir comparer la nouvell itération à chaque élement présent dans notre tableau à retourner
+        let length = arrayToReturn.length
+
+        for (let j = 0; j < length+1; j++) {
+
+            // si la valeur de notre tableau à comparer est déjà présente dans notre tableau à retourner, alors on passe à l'itération suivante
+            if (arrayToCompare[i] === arrayToReturn[j]) {
+                break;
+            }
+            // Si on arrive à la dernière valeur à comparer sans avoir été break alors on ajoute la valeur à notre tableau à retourner
+            if (j >= length) {
+                arrayToReturn.push(arrayToCompare[i])
+            }
+        }
+    }
+    console.log(arrayToReturn);
+    return arrayToReturn
+}
+

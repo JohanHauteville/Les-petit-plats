@@ -33,14 +33,7 @@ export function recipesFactory(data) {
             infoIngredients.appendChild(ingredientsElement)
             
         }
-
-        // ES6 
-        // ingredients.forEach(ingredient => {
-        //     const ingredientsElement = document.createElement('li')
-        //     ingredientsElement.innerHTML = `<span class="recipe__ingredients-title">${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit ? ingredient.unit : ""} `
-        //     infoIngredients.appendChild(ingredientsElement)
-        // });
-
+        
         // DESCRIPTION //
         const infoDescription = document.createElement('p')
         // DÉFINIT UNE LONGUEUR MAXIMUM POUR LE PARAGRAPHE DE DESCRIPTION

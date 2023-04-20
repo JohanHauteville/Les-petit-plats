@@ -1,9 +1,11 @@
 //////// CODE DES FONCTIONS DE RECHERCHE /////////
 
 import { recipes } from '../../data/recipes.js'
-import displayRecipes from '../pages/index.js'
 import { displayFilterTags } from '../pages/index.js'
 import { arrayOfResearch } from '../pages/index.js'
+import { isStringFound } from '../utils/filter.js'
+import { recipesFactory } from '../factories/recipesFactory.js'
+
 
 let arrayOfRecipesToDisplay = []
 
@@ -67,7 +69,7 @@ export function Research() {
 
 // FONCTION DE RECHERCHE PAR NOM
 export function researchName(word, listOfRecipes) {
-    if (listOfRecipes.name.toLowerCase().includes(word.toLowerCase())) {
+    if (isStringFound(listOfRecipes.name.toLowerCase(), word.toLowerCase())) {
         // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)
     }
@@ -75,32 +77,47 @@ export function researchName(word, listOfRecipes) {
 
 // FONCTION DE RECHERCHE PAR DESCRIPTION
 export function researchDescription(word, listOfRecipes) {
-    if (listOfRecipes.description.toLowerCase().includes(word.toLowerCase())) {
-       // Ajoute la recette au tableau de recette à afficher
+    if (isStringFound(listOfRecipes.description.toLowerCase(), word.toLowerCase())) {
+        // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)
     }
 }
 
 // FONCTION DE RECHERCHE PAR INGRÉDIENTS
 export function researchIngredient(word, listOfRecipes) {
-    const testNumber = listOfRecipes.ingredients.map(e => e.ingredient.toLowerCase().includes(word.toLowerCase()));
-    testNumber.forEach(element => {
-        if (element) {
+    //const testNumber = listOfRecipes.ingredients.map(e => e.ingredient.toLowerCase().includes(word.toLowerCase()));
+    let testNumber=[]
+    for (let i = 0; i < listOfRecipes.ingredients.length; i++) {
+            if(isStringFound(listOfRecipes.ingredients[i].ingredient.toLowerCase(),word.toLowerCase())){
+                testNumber.push(true);
+            }else{
+                testNumber.push(false);
+            }
+    }
+    for (let i = 0; i < testNumber.length; i++) {
+        if (testNumber[i]) {
             // Ajoute la recette au tableau de recette à afficher
             arrayOfRecipesToDisplay.push(listOfRecipes)
-        }
-    })
+        } 
+    }
 }
 
 // FONCTION DE RECHERCHE PAR USTENSILES
 export function researchUstensils(word, listOfRecipes) {
-    const testNumber = listOfRecipes.ustensils.map(e => e.toLowerCase().includes(word.toLowerCase()));
-    testNumber.forEach(element => {
-        if (element) {
+    let testNumber=[]
+    for (let i = 0; i < listOfRecipes.ustensils.length; i++) {
+        if(isStringFound(listOfRecipes.ustensils[i].toLowerCase(),word.toLowerCase())){
+            testNumber.push(true);
+        }else{
+            testNumber.push(false);
+        }
+    }
+    for (let i = 0; i < testNumber.length; i++) {
+        if (testNumber[i]) {
             // Ajoute la recette au tableau de recette à afficher
             arrayOfRecipesToDisplay.push(listOfRecipes)
-        }
-    })
+        } 
+    }
 }
 
 // FONCTION DE RECHERCHE PAR APPAREILS
@@ -108,5 +125,18 @@ export function researchAppareils(word, listOfRecipes) {
     if (listOfRecipes.appliance.toLowerCase() === word.toLowerCase()) {
         // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)
+    }
+}
+
+// FONCTION D'AFFICHAGE DES RECETTES
+function displayRecipes(data) {
+    const arrayOfRecipes = document.querySelector('.recettes-grille')
+    // vide les recettes déjà présente avant d'ajouter les nouvelles
+    arrayOfRecipes.innerHTML = ''
+    // Créer la card recette pour chacune des recette présente dans "data"
+    for (let index = 0; index < data.length; index++) {
+        const factorizedRecipe = recipesFactory(data[index])
+        const recipesDOM = factorizedRecipe.getRecipesDOM()
+        arrayOfRecipes.appendChild(recipesDOM)
     }
 }

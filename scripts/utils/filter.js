@@ -208,7 +208,7 @@ observer.observe(changeOnUstensilsFilter, config)
 
 
 // FONCTION DE RECHERCHE DE CHAINE DANS UNE CHAINE
-function isStringFound( s1,  s2){
+export function isStringFound( s1,  s2){
     const n1 = s1.length;
     const n2 = s2.length;
 

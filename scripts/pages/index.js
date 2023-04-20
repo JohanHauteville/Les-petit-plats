@@ -1,4 +1,4 @@
-import { recipesFactory } from '../factories/recipesFactory.js'
+
 import { AddTag } from '../utils/filter.js'
 import closeFilter from '../utils/filter.js'
 import { Research } from '../utils/researchFct.js'
@@ -6,18 +6,7 @@ import { Research } from '../utils/researchFct.js'
 // Initialisation de la variable qui contiendra la totalité des crières de recherche
 export let arrayOfResearch = []
 
-// FONCTION D'AFFICHAGE DES RECETTES
-export default function displayRecipes(data) {
-    const arrayOfRecipes = document.querySelector('.recettes-grille')
-    // vide les recettes déjà présente avant d'ajouter les nouvelles
-    arrayOfRecipes.innerHTML = ''
-    // Créer la card recette pour chacune des recette présente dans "data"
-    for (let index = 0; index < data.length; index++) {
-        const factorizedRecipe = recipesFactory(data[index])
-        const recipesDOM = factorizedRecipe.getRecipesDOM()
-        arrayOfRecipes.appendChild(recipesDOM)
-    }
-}
+
 
 // FONCTION D'AFFICHAGE DE LA LISTE DE TAG POUR LE/LES FILTRES
 export function displayFilterTags(data, filter) {

@@ -1,5 +1,6 @@
 //////// CODE DES FILTRES /////////
 
+
 import { arrayOfResearch } from '../pages/index.js'
 import { Research } from './researchFct.js'
 
@@ -9,63 +10,64 @@ const arrayOfFilter = document.querySelectorAll("input.filter ")
 let arrayOfFilterTag = []
 
 // POUR CHACUN DES FILTRES PRÉSENTS...
-arrayOfFilter.forEach(filter => {
+for (let indexOfArray = 0; indexOfArray < arrayOfFilter.length; indexOfArray++) {
+
 
     // EVENTLISTENER placé sur le FOCUS de l'INPUT
-    filter.addEventListener("focus", function () {
-        const id = filter.parentNode.getAttribute("id")
-        filter.setAttribute("data-filter-open", "")
+    arrayOfFilter[indexOfArray].addEventListener("focus", function () {
+        const id = arrayOfFilter[indexOfArray].parentNode.getAttribute("id")
+        arrayOfFilter[indexOfArray].setAttribute("data-filter-open", "")
 
         // On écrase la classe pour mettre "chevron-down" qui représente l'icone du chevron vers le bas
-        filter.parentNode.removeAttribute("class")
-        filter.parentNode.setAttribute("class", "chevron-down")
+        arrayOfFilter[indexOfArray].parentNode.removeAttribute("class")
+        arrayOfFilter[indexOfArray].parentNode.setAttribute("class", "chevron-down")
 
         // L'élément suivant de même niveau est affiché en grid (il représente la liste des tags à sélectionner)
-        filter.nextElementSibling.style.display = "grid"
+        arrayOfFilter[indexOfArray].nextElementSibling.style.display = "grid"
 
         // Affiche le "placeholder" adéquat lors du blur et onblur
-        handlePlaceholder(id, filter)
+        handlePlaceholder(id, arrayOfFilter[indexOfArray])
     })
 
     // EVENTLISTENER placé sur la VALEUR de l'INPUT
-    filter.addEventListener("input", e => {
+    arrayOfFilter[indexOfArray].addEventListener("input", e => {
 
         // on récupère un tableau de tous les <li> (tags) qu'il contient
-        const arraytotest = filter.nextElementSibling.querySelectorAll("li")
+        const arraytotest = arrayOfFilter[indexOfArray].nextElementSibling.querySelectorAll("li")
         // Si l'utilisateur à tapé 3 caractères ou plus ...
         if (e.target.value.length >= 3) {
-
-            arraytotest.forEach(element => {
-                // vérifie si la chaine tapé est présente dans un des <li> (tags)
-                if (element.innerText.toLowerCase().includes(e.target.value.toLowerCase())) {
-                    element.style.display = "inline"
+            for (let i = 0; i < arraytotest.length; i++) {
+                if (isStringFound(arraytotest[i].innerText.toLowerCase() ,e.target.value.toLowerCase())) {
+                    arraytotest[i].style.display = "inline"
                 } else {
-                    element.style.display = "none"
+                    arraytotest[i].style.display = "none"
                 }
-            })
+            }
         } else {
             // ... Sinon on affiche l'intégralité des <li>
-            arraytotest.forEach(element => element.style.display = "inline")
+            for (let i = 0; i < arraytotest.length; i++) {
+                arraytotest[i].style.display = "inline"
+            }
         }
 
     })
 
     // EVENTLISTENER placé sur le BLUR de l'INPUT
-    filter.addEventListener("blur", function () {
+    arrayOfFilter[indexOfArray].addEventListener("blur", function () {
         // On affiche de nouveau le chevron vers le haut
-        const id = filter.parentNode.getAttribute("id")
-        filter.parentNode.removeAttribute("class")
-        filter.parentNode.setAttribute("class", "chevron-up")
+        const id = arrayOfFilter[indexOfArray].parentNode.getAttribute("id")
+        arrayOfFilter[indexOfArray].parentNode.removeAttribute("class")
+        arrayOfFilter[indexOfArray].parentNode.setAttribute("class", "chevron-up")
 
         // Ce setTimout permet de laisser la possibilité de cliquer sur un des éléments de la liste
         // avant que celle-ci ne se referme
         setTimeout(e => {
-            filter.nextElementSibling.style.display = "none"
-            filter.removeAttribute("data-filter-open")
+            arrayOfFilter[indexOfArray].nextElementSibling.style.display = "none"
+            arrayOfFilter[indexOfArray].removeAttribute("data-filter-open")
         }, 150)
-        handlePlaceholder(id, filter)
+        handlePlaceholder(id, arrayOfFilter[indexOfArray])
     })
-})
+}
 
 // FONCTION DE FERMETURE DE LA LISTE DE TAGS
 export default function closeFilter(filter) {
@@ -138,35 +140,50 @@ function showTag() {
     sectionOfUstensilsTag.innerHTML = ''
 
     // Pour chaque élément de notre tableau de tag à afficher :
-    arrayOfFilterTag.forEach(element => {
-        // On récupère le bon filtre (pour respecter l'affichage colorimétrique du filtre)
-        const selectorToDisplay = `.filter-tags.filter-tags--${element.filter.toLowerCase()}`
-        const tagSection = document.querySelector(selectorToDisplay)
-        const newTag = document.createElement('div')
-        const newTagName = document.createElement('p')
-        const newTagCloseIcon = document.createElement('i')
-        // On ajoutele bouton de suppression du tag
-        newTagCloseIcon.setAttribute('class', "fa-regular fa-circle-xmark")
+    for (let j = 0; j < arrayOfFilterTag.length; j++) {
+       // On récupère le bon filtre (pour respecter l'affichage colorimétrique du filtre)
+       const selectorToDisplay = `.filter-tags.filter-tags--${arrayOfFilterTag[j].filter.toLowerCase()}`
+       const tagSection = document.querySelector(selectorToDisplay)
+       const newTag = document.createElement('div')
+       const newTagName = document.createElement('p')
+       const newTagCloseIcon = document.createElement('i')
+       // On ajoutele bouton de suppression du tag
+       newTagCloseIcon.setAttribute('class', "fa-regular fa-circle-xmark")
 
-        // EVENT LISTENER SUR L'ICONE DE FERMETURE DU TAG
-        newTagCloseIcon.addEventListener('click', e => {
-            // Récupère l'index du tag à supprimer dans le tableau d'affichage des tags
-            const indexToRemove = arrayOfFilterTag.map(e => e.tag).indexOf(element.tag)
+       // EVENT LISTENER SUR L'ICONE DE FERMETURE DU TAG
+       newTagCloseIcon.addEventListener('click', e => {
+
+           // Récupère l'index du tag à supprimer dans le tableau d'affichage des tags
+           let indexToRemove = undefined
+           for (let i = 0; i < arrayOfFilterTag.length; i++) {
+               if(arrayOfFilterTag[i].tag === arrayOfFilterTag[j].tag){
+                   indexToRemove = i
+               }
+           }
+
+           // Récupère l'index du tag à supprimer dans le tableau des critères de recherche
+           let indexOfResearchToRemove = undefined 
+           for (let i = 0; i < arrayOfResearch.length; i++) {
+               if(arrayOfResearch[i].words === arrayOfFilterTag[j].tag){
+                   indexOfResearchToRemove = i
+               }
+           }
+
             // Supprime le tag du tableau de tag à afficher
             arrayOfFilterTag.splice(indexToRemove, 1)
-            // Récupère l'index du tag à supprimer dans le tableau des critères de recherche
-            const indexOfResearchToRemove = arrayOfResearch.map(e => e.words).indexOf(element.tag)
             // Supprime le tag du tableau des critères de recherche
             arrayOfResearch.splice(indexOfResearchToRemove, 1)
+
             // Récurrence de la fonction pour afficher les tags mis à jour 
             showTag()
-        })
-        newTag.setAttribute("class", `btn-tag btn-tag--${element.filter.toLowerCase()}`)
-        newTagName.innerText = element.tag
-        newTag.appendChild(newTagName)
-        newTag.appendChild(newTagCloseIcon)
-        tagSection.appendChild(newTag)
-    })
+       })
+       newTag.setAttribute("class", `btn-tag btn-tag--${arrayOfFilterTag[j].filter.toLowerCase()}`)
+       newTagName.innerText = arrayOfFilterTag[j].tag
+       newTag.appendChild(newTagName)
+       newTag.appendChild(newTagCloseIcon)
+       tagSection.appendChild(newTag)
+        
+    }
 }
 
 // Sélectionne les noeuds dont les mutations seront observées
@@ -186,3 +203,45 @@ let observer = new MutationObserver(e => {
 observer.observe(changeOnIngredientsFilter, config);
 observer.observe(changeOnAppareilsFilter, config)
 observer.observe(changeOnUstensilsFilter, config)
+
+
+
+
+// FONCTION DE RECHERCHE DE CHAINE DANS UNE CHAINE
+function isStringFound( s1,  s2){
+    const n1 = s1.length;
+    const n2 = s2.length;
+
+    if(n2 === 0)     // Vérification d'absence de chaine à comparer
+        return false;
+
+    if(n2 > n1)    // Vérification si la chaine à comparer est plus grande que la chaine source
+        return false;
+
+    for(let i = 0; i < s1.length; i++){
+        // Si le premier caractère correspond ...
+        if(s1.charAt(i) === s2.charAt(0)){ 
+            // On vérifie alors si le reste de la chaine correspond
+            if(isRestOfTheStringMatch(i+1, s1, s2)) {  
+                // si c'est le cas on retourne TRUE...
+                return true;
+            }     
+        }        
+    }
+    //... Sinon FALSE
+    return false;
+}
+
+// FONCTION DE RECHERCHE DU RESTE DE LA CHAINE DANS UNE AUTRE CHAINE
+function isRestOfTheStringMatch(start, s1, s2){
+    const n = s2.length;
+    for(let i = start, x = 1; x < n; i++, x++){
+        // Si un des caractère suivant de correspond pas ...
+        if(s1.charAt(i) != s2.charAt(x)){
+            //... on retourne FALSE
+            return false           
+        }
+    }
+    // Sinon, si tout se déroule sans incidents, on retourne TRUE pour indiquer que cela correspond
+    return true;
+}

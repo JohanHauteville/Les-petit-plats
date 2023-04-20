@@ -17,6 +17,14 @@ function startResearch(e) {
     if (valueOfResearch.length >= 3) {
         //Permet d'ajouter la phrase de recherche principale dans un tableau de critère recherche
         const principalWord = { section: "Principal", words: valueOfResearch }
+
+        // for (let i = 0; i < arrayOfResearch.length; i++) {
+        //     if(arrayOfResearch[i]==='Principal'){
+
+        //     }
+            
+        // }
+
         arrayOfResearch.forEach((element, index) => {
             //Vérifie si une phrase est déjà présente
             if (element.section.indexOf('Principal') === 0) {

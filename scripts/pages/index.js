@@ -67,21 +67,25 @@ export function displayFilterTags(data, filter) {
     // Dans les filtrages précédents nous avons formater les tags pour n'utiliser que les minuscules
     // Cela permet d'éviter les problèmes d'affichage (des majuscules en trop,..)
     // ICI nous allons faire en sort que seule la première lettre soit en majuscule
-    arrayOfUniqueElement.forEach(function (part, index) {
-        arrayOfUniqueElement[index] = part.charAt(0).toUpperCase() + part.slice(1)
-    })
+
+    for (let i = 0; i < arrayOfUniqueElement.length; i++) {
+        arrayOfUniqueElement[i] = arrayOfUniqueElement[i][0].toUpperCase() + arrayOfUniqueElement[i].slice(1)
+    }
 
     // création pour chaque tag contenu dans le tableau d'un list item
-    arrayOfUniqueElement.forEach(tag => {
+    for (let i = 0; i < arrayOfUniqueElement.length; i++) {
         const listItem = document.createElement('li')
         // Lors du click, on ferme le filtre puis on ajoute le tag dans le tableau des critères de recherche
         listItem.addEventListener('click', e => {
             closeFilter(listForFilterTags)
-            AddTag(filter, tag)
+            AddTag(filter, arrayOfUniqueElement[i])
         })
-        listItem.textContent = tag
+        listItem.textContent = arrayOfUniqueElement[i]
         listForFilterTags.appendChild(listItem)
-    })
+    }
+
+
+
     return arrayOfUniqueElement;
 }
 
@@ -97,6 +101,7 @@ function init() {
 init()
 
 
+// FONCTION DE SUPPRESSION DES DOUBLONS DANS UN TABLEAU
 function deleteCopiesInArray(arrayToCompare) {
     let arrayToReturn = []
     // pour chacunes des itérations ..
@@ -121,7 +126,6 @@ function deleteCopiesInArray(arrayToCompare) {
             }
         }
     }
-    console.log(arrayToReturn);
     return arrayToReturn
 }
 

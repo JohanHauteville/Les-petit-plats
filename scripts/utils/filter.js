@@ -4,7 +4,6 @@ import { arrayOfResearch } from '../pages/index.js'
 import { Research } from './researchFct.js'
 
 const arrayOfFilter = document.querySelectorAll("input.filter ")
-// const arrayOfUL = document.querySelectorAll('.filter__list')
 
 // initialisation de la variable qui contiendra la totalité des tags affichés à l'utilisateur
 let arrayOfFilterTag = []
@@ -74,7 +73,6 @@ export default function closeFilter(filter) {
     filter.parentNode.removeAttribute("class")
     filter.parentNode.setAttribute("class", "chevron-up")
     filter.style.display = "none"
-    //handlePlaceholder(id,filter.previousElementSibling)
     filter.previousElementSibling.removeAttribute("data-filter-open")
 }
 
@@ -112,11 +110,11 @@ function handlePlaceholder(id, filter) {
 // FONCTION D'AJOUT D'UN TAG À LA LISTE DES TAG AFFICHÉ AINSI QU'AU TABLEAU DES CRITÈRES
 export function AddTag(filter, tag) {
     let testDoublon = 0
-    arrayOfFilterTag.map(e => {
-        if (e.tag === tag) {
+    for (let i = 0; i < arrayOfFilterTag.length; i++) {
+        if (arrayOfFilterTag[i].tag === tag) {
             testDoublon++
         }
-    })
+    }
     if (testDoublon === 0) {
         let newObject = {
             filter: filter,

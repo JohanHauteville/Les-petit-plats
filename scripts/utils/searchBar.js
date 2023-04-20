@@ -18,20 +18,14 @@ function startResearch(e) {
         //Permet d'ajouter la phrase de recherche principale dans un tableau de critère recherche
         const principalWord = { section: "Principal", words: valueOfResearch }
 
-        // for (let i = 0; i < arrayOfResearch.length; i++) {
-        //     if(arrayOfResearch[i]==='Principal'){
-
-        //     }
-            
-        // }
-
-        arrayOfResearch.forEach((element, index) => {
+        for (let i = 0; i < arrayOfResearch.length; i++) {
             //Vérifie si une phrase est déjà présente
-            if (element.section.indexOf('Principal') === 0) {
+            if (arrayOfResearch[i].section === 'Principal') {
                 // Supprime la phrase existante
-                arrayOfResearch.splice(index, 1)
+                arrayOfResearch.splice(i, 1)
             }
-        })
+        }
+
         //Ajoute la phrase principale au tableau de critères recherche
         arrayOfResearch.push(principalWord)
 
@@ -39,13 +33,13 @@ function startResearch(e) {
         Research()
 
     } else {
-        arrayOfResearch.forEach((element, index) => {
+        for (let i = 0; i < arrayOfResearch.length; i++) {
             //Vérifie si une phrase est déjà présente
-            if (element.section.indexOf('Principal') === 0) {
+            if (arrayOfResearch[i].section === 'Principal') {
                 // Supprime la phrase existante
-                arrayOfResearch.splice(index, 1)
+                arrayOfResearch.splice(i, 1)
             }
-        })
+        }
 
         //Lancement de la recherche
         Research()

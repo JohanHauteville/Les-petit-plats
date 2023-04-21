@@ -91,7 +91,7 @@ init()
 
 
 // FONCTION DE SUPPRESSION DES DOUBLONS DANS UN TABLEAU
-function deleteCopiesInArray(arrayToCompare) {
+export function deleteCopiesInArray(arrayToCompare) {
     let arrayToReturn = []
     // pour chacunes des itérations ..
     for (let i = 0; i < arrayToCompare.length; i++) {

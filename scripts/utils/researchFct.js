@@ -73,7 +73,7 @@ export function Research() {
 }
 
 // FONCTION DE RECHERCHE PAR NOM
-export function researchName(word, listOfRecipes) {
+function researchName(word, listOfRecipes) {
     if (isStringFound(listOfRecipes.name.toLowerCase(), word.toLowerCase())) {
         // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)
@@ -81,7 +81,7 @@ export function researchName(word, listOfRecipes) {
 }
 
 // FONCTION DE RECHERCHE PAR DESCRIPTION
-export function researchDescription(word, listOfRecipes) {
+function researchDescription(word, listOfRecipes) {
     if (isStringFound(listOfRecipes.description.toLowerCase(), word.toLowerCase())) {
         // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)
@@ -89,7 +89,7 @@ export function researchDescription(word, listOfRecipes) {
 }
 
 // FONCTION DE RECHERCHE PAR INGRÉDIENTS
-export function researchIngredient(word, listOfRecipes) {
+function researchIngredient(word, listOfRecipes) {
     //const testNumber = listOfRecipes.ingredients.map(e => e.ingredient.toLowerCase().includes(word.toLowerCase()));
     let testNumber = []
     for (let i = 0; i < listOfRecipes.ingredients.length; i++) {
@@ -108,7 +108,7 @@ export function researchIngredient(word, listOfRecipes) {
 }
 
 // FONCTION DE RECHERCHE PAR USTENSILES
-export function researchUstensils(word, listOfRecipes) {
+function researchUstensils(word, listOfRecipes) {
     let testNumber = []
     for (let i = 0; i < listOfRecipes.ustensils.length; i++) {
         if (isStringFound(listOfRecipes.ustensils[i].toLowerCase(), word.toLowerCase())) {
@@ -126,7 +126,7 @@ export function researchUstensils(word, listOfRecipes) {
 }
 
 // FONCTION DE RECHERCHE PAR APPAREILS
-export function researchAppareils(word, listOfRecipes) {
+function researchAppareils(word, listOfRecipes) {
     if (listOfRecipes.appliance.toLowerCase() === word.toLowerCase()) {
         // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)

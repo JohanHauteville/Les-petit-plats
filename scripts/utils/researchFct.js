@@ -20,24 +20,24 @@ export function Research() {
 
 
     // POUR CHAQUE CRITERES DE RECHERCHE
-    copyOfResearch.forEach(research => {
-        if (research.section === 'INGREDIENTS') {
+    for (let indexPrincipal = 0; indexPrincipal < copyOfResearch.length; indexPrincipal++) {
+        if (copyOfResearch[indexPrincipal].section === 'INGREDIENTS') {
             for (let i = 0; i < copyOfRecipes.length; i++) {
-                researchIngredient(research.words, copyOfRecipes[i])
+                researchIngredient(copyOfResearch[indexPrincipal].words, copyOfRecipes[i])
             }
-        } else if (research.section === 'USTENSILS') {
+        } else if (copyOfResearch[indexPrincipal].section === 'USTENSILS') {
             for (let i = 0; i < copyOfRecipes.length; i++) {
-                researchUstensils(research.words, copyOfRecipes[i])
+                researchUstensils(copyOfResearch[indexPrincipal].words, copyOfRecipes[i])
             }
-        } else if (research.section === 'APPAREILS') {
+        } else if (copyOfResearch[indexPrincipal].section === 'APPAREILS') {
             for (let i = 0; i < copyOfRecipes.length; i++) {
-                researchAppareils(research.words, copyOfRecipes[i])
+                researchAppareils(copyOfResearch[indexPrincipal].words, copyOfRecipes[i])
             }
-        } else if (research.section === 'Principal') {
+        } else if (copyOfResearch[indexPrincipal].section === 'Principal') {
             for (let i = 0; i < copyOfRecipes.length; i++) {
-                researchName(research.words, copyOfRecipes[i])
-                researchDescription(research.words, copyOfRecipes[i])
-                researchIngredient(research.words, copyOfRecipes[i])
+                researchName(copyOfResearch[indexPrincipal].words, copyOfRecipes[i])
+                researchDescription(copyOfResearch[indexPrincipal].words, copyOfRecipes[i])
+                researchIngredient(copyOfResearch[indexPrincipal].words, copyOfRecipes[i])
             }
         } else {
             console.log('Pas de filtre correspondant');
@@ -47,7 +47,7 @@ export function Research() {
         copyOfRecipes = deleteCopiesInArray(arrayOfRecipesToDisplay)
         //ON VIDE LE TABLEAU QUI RECOIT LES RECETTES A AFFICHER
         arrayOfRecipesToDisplay = []
-    })
+    }
 
     const presenceOfPError = document.querySelector('.no-result')
     //Test si le NODE existe déjà et le supprime si c'est le cas pour éviter les doublons

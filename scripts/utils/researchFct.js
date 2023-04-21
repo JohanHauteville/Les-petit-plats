@@ -1,7 +1,7 @@
 //////// CODE DES FONCTIONS DE RECHERCHE /////////
 
 import { recipes } from '../../data/recipes.js'
-import displayRecipes from '../pages/index.js'
+import {recipesFactory} from '../factories/recipesFactory.js'
 import { displayFilterTags } from '../pages/index.js'
 import { arrayOfResearch } from '../pages/index.js'
 
@@ -66,7 +66,7 @@ export function Research() {
 }
 
 // FONCTION DE RECHERCHE PAR NOM
-export function researchName(word, listOfRecipes) {
+function researchName(word, listOfRecipes) {
     if (listOfRecipes.name.toLowerCase().includes(word.toLowerCase())) {
         // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)
@@ -74,7 +74,7 @@ export function researchName(word, listOfRecipes) {
 }
 
 // FONCTION DE RECHERCHE PAR DESCRIPTION
-export function researchDescription(word, listOfRecipes) {
+function researchDescription(word, listOfRecipes) {
     if (listOfRecipes.description.toLowerCase().includes(word.toLowerCase())) {
        // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)
@@ -82,7 +82,7 @@ export function researchDescription(word, listOfRecipes) {
 }
 
 // FONCTION DE RECHERCHE PAR INGRÉDIENTS
-export function researchIngredient(word, listOfRecipes) {
+function researchIngredient(word, listOfRecipes) {
     const testNumber = listOfRecipes.ingredients.map(e => e.ingredient.toLowerCase().includes(word.toLowerCase()));
     testNumber.forEach(element => {
         if (element) {
@@ -93,7 +93,7 @@ export function researchIngredient(word, listOfRecipes) {
 }
 
 // FONCTION DE RECHERCHE PAR USTENSILES
-export function researchUstensils(word, listOfRecipes) {
+function researchUstensils(word, listOfRecipes) {
     const testNumber = listOfRecipes.ustensils.map(e => e.toLowerCase().includes(word.toLowerCase()));
     testNumber.forEach(element => {
         if (element) {
@@ -104,9 +104,23 @@ export function researchUstensils(word, listOfRecipes) {
 }
 
 // FONCTION DE RECHERCHE PAR APPAREILS
-export function researchAppareils(word, listOfRecipes) {
+function researchAppareils(word, listOfRecipes) {
     if (listOfRecipes.appliance.toLowerCase() === word.toLowerCase()) {
         // Ajoute la recette au tableau de recette à afficher
         arrayOfRecipesToDisplay.push(listOfRecipes)
     }
+}
+
+// FONCTION D'AFFICHAGE DES RECETTES
+function displayRecipes(data){
+    const arrayOfRecipes = document.querySelector('.recettes-grille')
+    // vide les recettes déjà présente avant d'ajouter les nouvelles
+    arrayOfRecipes.innerHTML=''
+    // Créer la card recette pour chacune des recette présente dans "data"
+    data.forEach(recipe => {
+        const factorizedRecipe = recipesFactory(recipe)
+        const recipesDOM = factorizedRecipe.getRecipesDOM()
+        arrayOfRecipes.appendChild(recipesDOM)
+    });
+    
 }
